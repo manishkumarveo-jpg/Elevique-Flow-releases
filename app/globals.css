@@ -582,3 +582,16 @@ html:not(.js) .tl{opacity:1;transform:none}
 /* real app logos in the switcher: white mark on the app's own colour */
 .tile2 .ic img{width:32px;height:32px}
 .tile2[aria-selected=true] .ic{box-shadow:0 0 0 2px var(--iv),0 10px 24px rgba(0,0,0,.4)}
+
+/* macOS-style glass app icons: squircle, frosted gradient, specular rim and gloss */
+.tile2 .ic{position:relative;overflow:hidden;width:60px;height:60px;border-radius:15px;border:0;
+  background:linear-gradient(160deg,rgba(255,255,255,.96) 0%,rgba(236,238,244,.86) 55%,rgba(214,218,228,.8) 100%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.95),inset 0 -2px 6px rgba(80,90,120,.14),0 1px 0 rgba(255,255,255,.08),0 10px 22px rgba(0,0,0,.38)}
+.tile2 .ic::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;
+  background:linear-gradient(170deg,rgba(255,255,255,1),rgba(255,255,255,.15) 45%,rgba(255,255,255,.55));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.tile2 .ic::after{content:"";position:absolute;left:-20%;right:-20%;top:-55%;height:85%;border-radius:50%;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 100%,rgba(255,255,255,.75),rgba(255,255,255,0) 70%);opacity:.55}
+.tile2 .ic img{position:relative;z-index:1;width:32px;height:32px;filter:drop-shadow(0 1px 1.5px rgba(0,0,0,.18))}
+.tile2[aria-selected=true] .ic{transform:scale(1.1);box-shadow:inset 0 1px 0 #fff,inset 0 -2px 6px rgba(80,90,120,.14),0 0 0 2px rgba(255,255,255,.85),0 14px 30px rgba(0,0,0,.5)}
+.tile2:not([aria-selected=true]) .ic{opacity:.82}

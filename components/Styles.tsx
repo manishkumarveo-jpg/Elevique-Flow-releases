@@ -140,7 +140,7 @@ export default function Styles() {
           <div className="switch" role="tablist" aria-label="Kinds of app">
             {APPS.map((x, i) => (
               <button key={x.id} className="tile2" role="tab" aria-selected={i === app} onClick={() => show(i)}>
-                <span className="ic" style={{ background: x.color }}><img src={`${BASE}/apps/${x.logo}.svg`} alt="" /></span>{x.name}
+                <span className="ic"><img src={`${BASE}/apps/${x.logo}.svg`} alt="" /></span>{x.name}
               </button>
             ))}
           </div>
