@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import { gsap, lite, MQ, useGSAP, type Conditions } from '@/lib/gsap';
 import { reducedMotion } from '@/lib/site';
 import { useOnScreen } from './client';
 import { Head, Icon } from './ui';
@@ -35,6 +36,30 @@ export default function Shortcuts() {
     const t = window.setInterval(() => { if (inView.current) setCurrent(i => (i + 1) % SHORTCUTS.length); }, 3400);
     return () => clearInterval(t);
   }, [auto]);
+
+  // The keyboard rises from lying flat to a laptop's angle as you scroll in, and on a desktop turns a little toward the cursor.
+  useGSAP(() => {
+    const mm = gsap.matchMedia();
+    mm.add(MQ, ctx => {
+      const { motion, fine } = ctx.conditions as Conditions;
+      if (!motion || lite()) return;
+      const kb = section.current?.querySelector<HTMLElement>('.kb');
+      if (!kb) return;
+      gsap.fromTo(kb, { rotationX: 64, y: 60, transformPerspective: 1500, transformOrigin: '50% 100%' },
+        { rotationX: 22, y: 0, ease: 'none', scrollTrigger: { trigger: kb, start: 'top bottom', end: 'center 58%', scrub: true } });
+      if (!fine) return;
+      const ry = gsap.quickTo(kb, 'rotationY', { duration: .8, ease: 'power3' });
+      const wrap = kb.parentElement!;
+      let r: DOMRect | null = null; // measured once per hover, not on every move
+      const enter = () => { r = wrap.getBoundingClientRect(); };
+      const move = (e: PointerEvent) => { if (r) ry(((e.clientX - r.left) / r.width - .5) * 14); };
+      const leave = () => ry(0);
+      wrap.addEventListener('pointerenter', enter);
+      wrap.addEventListener('pointermove', move);
+      wrap.addEventListener('pointerleave', leave);
+      return () => { wrap.removeEventListener('pointerenter', enter); wrap.removeEventListener('pointermove', move); wrap.removeEventListener('pointerleave', leave); };
+    });
+  }, { scope: section });
 
   const choose = (i: number) => { setAuto(false); setCurrent(i); };
   const lit = SHORTCUTS[current].keys;

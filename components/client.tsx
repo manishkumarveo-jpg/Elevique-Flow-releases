@@ -2,9 +2,12 @@
 import { useEffect, useRef, useState, type ReactNode, type RefObject } from 'react';
 import { Brand, DownloadButton, Icon } from './ui';
 
+declare global { interface Window { __motion?: boolean } }
+
 /** Fades in every `.rv` element (and marks `[data-enter]` ones) the first time it scrolls into view. */
 export function Reveal() {
   useEffect(() => {
+    window.__motion = true; // the <head> failsafe leaves content hidden only if this runs
     const io = new IntersectionObserver(
       es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }),
       { rootMargin: '0px 0px -10% 0px' },
@@ -52,16 +55,25 @@ export function TourPlayer({ src, poster }: { src: string; poster: string }) {
   );
 }
 
+/** Solid once you scroll; slides away while you read down the page and comes back as soon as you scroll up. */
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
   useEffect(() => {
-    const on = () => setScrolled(window.scrollY > 10);
+    // Read the position in the scroll event itself, before any animation writes styles in the frame,
+    // so the read never forces a layout. React skips the render when nothing changed.
+    let last = window.scrollY;
+    const on = () => {
+      const y = window.scrollY;
+      setScrolled(y > 10);
+      if (Math.abs(y - last) > 6) { setHidden(y > last && y > 480); last = y; }
+    };
     on();
     addEventListener('scroll', on, { passive: true });
     return () => removeEventListener('scroll', on);
   }, []);
   return (
-    <header className={`nav${scrolled ? ' scrolled' : ''}`}>
+    <header className={`nav${scrolled ? ' scrolled' : ''}${hidden ? ' hide' : ''}`}>
       <div className="wrap">
         <Brand />
         <nav className="links" aria-label="Sections">

@@ -1,6 +1,7 @@
 import { Nav, Reveal } from '@/components/client';
 import Cleanup from '@/components/Cleanup';
 import Hero from '@/components/Hero';
+import Motion from '@/components/Motion';
 import { Details, End, Faq, Footer, Languages, Meetings, Privacy, Start, Tour } from '@/components/Sections';
 import Shortcuts from '@/components/Shortcuts';
 import Styles from '@/components/Styles';
@@ -29,6 +30,7 @@ export default function Home() {
       </main>
       <Footer />
       <Reveal />
+      <Motion />
     </>
   );
 }

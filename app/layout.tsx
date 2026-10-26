@@ -28,7 +28,11 @@ export const viewport: Viewport = { themeColor: '#121212', viewportFit: 'cover' 
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={[sans.variable, mono.variable, brand.variable, deva.variable].join(' ')}>
+    <html lang="en" className={[sans.variable, mono.variable, brand.variable, deva.variable].join(' ')} suppressHydrationWarning>
+      <head>
+        {/* Reveal animations hide content only once we know scripts run; if they haven't started in 3 s, show everything. */}
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js');setTimeout(function(){if(!window.__motion)document.documentElement.classList.remove('js')},3000)" }} />
+      </head>
       <body>{children}</body>
     </html>
   );

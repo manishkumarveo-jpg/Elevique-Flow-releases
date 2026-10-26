@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { DOWNLOAD, MARK } from '@/lib/site';
+import { DOWNLOAD, MARK, MARK_OUTLINE, MARK_WEDGE } from '@/lib/site';
 
 /** One sprite for every icon and the mark; components draw them with <use href="#…">. */
 export function Sprite() {
@@ -7,6 +7,14 @@ export function Sprite() {
     <svg width="0" height="0" style={{ position: 'absolute' }} aria-hidden="true">
       <defs>
         <path id="mk" d={MARK} />
+        <path id="mk-o" d={MARK_OUTLINE} />
+        <path id="mk-w" d={MARK_WEDGE} />
+        {/* user-space units so the split pieces share one gradient and meet without a seam */}
+        <linearGradient id="sg" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="93.5">
+          <stop offset="0" stopColor="#FFFFFF" /><stop offset="1" stopColor="#8C8C90" />
+        </linearGradient>
+        <clipPath id="ck-top"><rect x="-2" y="-2" width="104" height="42.2" /></clipPath>
+        <clipPath id="ck-bot"><rect x="-2" y="40.2" width="104" height="56" /></clipPath>
         <symbol id="i-dl" viewBox="0 0 24 24"><path d="M12 4v11M7 10.5l5 5 5-5M5 20h14" /></symbol>
         <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><ellipse cx="12" cy="12" rx="4" ry="9" /><path d="M3 12h18M5 7.5h14M5 16.5h14" /></symbol>
         <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v7a2.5 2.5 0 0 1-2.5 2.5H9.5L5 20v-4.2A2.5 2.5 0 0 1 4 13.5z" /></symbol>
@@ -30,6 +38,22 @@ export function Sprite() {
         <symbol id="i-ask" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path d="M9.5 9.5a2.5 2.5 0 1 1 3.4 2.3c-.6.3-.9.8-.9 1.5v.4M12 16.8v.2" /></symbol>
       </defs>
     </svg>
+  );
+}
+
+/** The mark as its three strokes (top stroke with half the bar, bottom stroke with the other half, and the wedge), each on
+ *  its own layer so they can fly in from depth and meet. The whole mark sits on top to hide the seam once they've met. */
+export function MarkPieces({ className }: { className: string }) {
+  const piece = (cls: string, shape: ReactNode) => (
+    <div className={`xp ${cls}`}><svg viewBox="-1 -1 102 95.5">{shape}</svg></div>
+  );
+  return (
+    <div className={className} aria-hidden="true">
+      {piece('xp-top', <use href="#mk-o" fill="url(#sg)" clipPath="url(#ck-top)" />)}
+      {piece('xp-bot', <use href="#mk-o" fill="url(#sg)" clipPath="url(#ck-bot)" />)}
+      {piece('xp-wedge', <use href="#mk-w" fill="url(#sg)" />)}
+      {piece('xp-full', <use href="#mk" fill="url(#sg)" />)}
+    </div>
   );
 }
 

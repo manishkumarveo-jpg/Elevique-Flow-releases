@@ -1,19 +1,34 @@
 import { Fragment, type CSSProperties } from 'react';
-import { BASE, MARK, REPO, hash } from '@/lib/site';
+import { BASE, REPO, hash } from '@/lib/site';
 import { InView, TourPlayer } from './client';
-import { Brand, DownloadButton, Head, Icon } from './ui';
+import { Brand, DownloadButton, Head, Icon, MarkPieces } from './ui';
 
 const LANGUAGES = ['English', 'Hindi', 'Hinglish', 'Bengali', 'Tamil', 'Telugu', 'Marathi', 'Gujarati', 'Urdu', 'Kannada', 'Malayalam', 'Punjabi',
   'Assamese', 'Spanish', 'French', 'German', 'Portuguese', 'Italian', 'Dutch', 'Russian', 'Japanese', 'Korean', 'Chinese', 'Arabic', 'Turkish'];
 
-/** Typed text that writes itself in, word by word, once the cards are in view. */
-function Typed({ text }: { text: string }) {
+/** What was heard, turning over word by word into what's typed: each Hindi word is a card with its Latin spelling on the back. */
+function Flip({ pairs, whole }: { pairs: [string, string][]; whole?: boolean }) {
+  let n = 0;
   return (
-    <p className="lat">
-      {text.split(' ').map((w, i) => <Fragment key={i}>{i > 0 && ' '}<span className="w" style={{ '--d': `${.5 + i * .12}s` } as CSSProperties}>{w}</span></Fragment>)}
-    </p>
+    <>
+      <p className="flab"><span className="l1">Heard</span><span className="l2">Typed</span></p>
+      <p className={`flipline${whole ? ' whole' : ''}`}>
+        {pairs.map(([heard, typed], i) => (
+          <Fragment key={i}>
+            {i > 0 && ' '}
+            {heard === typed ? <span className="fw same">{heard}</span> : (
+              <span className="fw" style={{ '--d': `${.35 + n++ * .14}s` } as CSSProperties}>
+                <span className="f1">{heard}</span><span className="f2">{typed}</span>
+              </span>
+            )}
+          </Fragment>
+        ))}
+      </p>
+    </>
   );
 }
+
+const HINGLISH: [string, string][] = [['कल', 'Kal'], ['की', 'ki'], ['meeting', 'meeting'], ['cancel', 'cancel'], ['करो,', 'karo,'], ['client', 'client'], ['busy', 'busy'], ['है', 'hai.']];
 
 export function Languages() {
   return (
@@ -23,10 +38,18 @@ export function Languages() {
           <p className="lead rv d2">Choose Hinglish and mixed Hindi and English comes out in Latin letters. Pure Hindi stays in Devanagari. Or hold <kbd>fn</kbd> + <kbd>⇧</kbd>, speak Hindi or another Indian language, and get English.</p>
         </Head>
         <InView className="langs rv" id="lang">
-          <div className="lc"><p className="eyebrow">Hinglish</p><p className="lab">Heard</p><p className="dev">कल की meeting cancel करो, client busy है</p><p className="lab">Typed</p><Typed text="Kal ki meeting cancel karo, client busy hai." /></div>
-          <div className="lc"><p className="eyebrow">Translate to English · <kbd>fn</kbd> + <kbd>⇧</kbd></p><p className="lab">Heard</p><p className="dev">मैं दस मिनट में पहुँच रहा हूँ</p><p className="lab">Typed</p><Typed text="I'll be there in ten minutes." /></div>
+          <div className="lc"><p className="eyebrow">Hinglish</p><Flip pairs={HINGLISH} /></div>
+          <div className="lc"><p className="eyebrow">Translate to English · <kbd>fn</kbd> + <kbd>⇧</kbd></p><Flip whole pairs={[['मैं दस मिनट में पहुँच रहा हूँ', "I'll be there in ten minutes."]]} /></div>
         </InView>
-        <div className="chips rv">{LANGUAGES.map(l => <span key={l} className={`chip${l === 'Hinglish' ? ' hl' : ''}`}>{l}</span>)}</div>
+        <div className="chips flat rv">{LANGUAGES.map(l => <span key={l} className={`chip${l === 'Hinglish' ? ' hl' : ''}`}>{l}</span>)}</div>
+        {/* On a desktop, the same languages orbit like the globe on the fn key; it only turns while it's on screen. */}
+        <div className="ringwrap off" aria-hidden="true">
+          <div className="ringtilt">
+            <div className="ring">
+              {LANGUAGES.map((l, i) => <span key={l} className={`chip${l === 'Hinglish' ? ' hl' : ''}`} style={{ '--i': i } as CSSProperties}>{l}</span>)}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -60,7 +83,7 @@ export function Meetings() {
           <p className="lead rv d2">When a call app starts using your mic, Elevique Flow offers to take notes. It records your voice and the call&apos;s audio on your Mac, then writes the transcript, a summary and action items. Nobody joins your call.</p>
         </Head>
         <InView className="meet rv" id="meet" threshold={.3}>
-          <div className="mpanel">
+          <div className="mpanel off">
             <div className="mtop"><div className="toast">Zoom is using your mic<span className="tb">Take notes</span></div><p className="rec">Recording · 12:48</p></div>
             <div className="lane"><b>ME</b><div className="track"><Strip lane={0} /></div></div>
             <div className="lane them"><b>THEM</b><div className="track"><Strip lane={1} /></div></div>
@@ -162,6 +185,12 @@ const ON_YOUR_MAC = [
   ['Diagnostics log', 'Timings and errors, never what you said'],
 ];
 
+/** Data moving along a wire: each packet rides a track the size of the wire, so translateX(100%) is exactly the wire's
+ *  length at any width. One animation per wire (the fade is part of it), run by the compositor, paused off screen. */
+function Packets() {
+  return <i className="pktrack"><b className="pkt" /></i>;
+}
+
 export function Privacy() {
   return (
     <section className="sec light" id="privacy">
@@ -169,7 +198,7 @@ export function Privacy() {
         <Head n="09" label="Privacy" title="No account." soft="No Elevique servers.">
           <p className="lead rv d2">Elevique Flow talks to one service: Groq, with your own key, only to transcribe and clean up what you say. Your history, notes, recordings and dictionary stay on this Mac.</p>
         </Head>
-        <div className="flow rv">
+        <div className="flow off rv">
           <div className="node">
             <h3><Icon name="laptop" />Your Mac</h3>
             <ul>
@@ -177,8 +206,8 @@ export function Privacy() {
             </ul>
           </div>
           <div className="wires" aria-hidden="true">
-            <div className="wcol"><p className="wl">Your audio and words, with a little context</p><div className="wire" /></div>
-            <div className="wcol"><div className="wire back" /><p className="wl">Text</p></div>
+            <div className="wcol"><p className="wl">Your audio and words, with a little context</p><div className="wire"><Packets /></div></div>
+            <div className="wcol"><div className="wire back"><Packets /></div><p className="wl">Text</p></div>
           </div>
           <div className="node groq">
             <h3><Icon name="cloud" />Groq</h3>
@@ -214,12 +243,15 @@ export function Start() {
           <div className="rv d2"><DownloadButton /></div>
         </Head>
         <div className="inst">
+          <div className="stepsbox">
+          <span className="sline" aria-hidden="true" />
           <ol className="steps rv">
             <li><div><h3>Download and drag to Applications</h3><p>Open the DMG and drag Elevique Flow into your Applications folder.</p></div></li>
             <li><div><h3>Open it, then Open Anyway</h3><p>This free build isn&apos;t notarized by Apple, so macOS asks once. In System Settings → Privacy &amp; Security, click <span className="oa">Open Anyway</span>.</p></div></li>
             <li><div><h3>Add your free Groq key</h3><p>Create one at <a href="https://console.groq.com/keys">console.groq.com/keys</a> and paste it into Settings → AI. It&apos;s stored in your Keychain.</p></div></li>
             <li><div><h3>Allow, then talk</h3><p>Allow the microphone and Accessibility, set “Press 🌐 key to” to Do Nothing, then hold <kbd>fn</kbd> and talk.</p></div></li>
           </ol>
+          </div>
           <dl className="spec rv d1">
             {SPEC.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}
           </dl>
@@ -266,13 +298,10 @@ export function Faq() {
 
 export function End() {
   return (
-    <section className="end" id="get" data-enter>
+    <section className="end" id="get">
       <div className="wrap">
-        <svg className="bigmark" viewBox="-1 -1 102 95.5" aria-hidden="true">
-          <defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#FFFFFF" /><stop offset="1" stopColor="#8C8C90" /></linearGradient></defs>
-          <use className="mf" href="#mk" fill="url(#sg)" />
-          <path className="ms" pathLength={1000} d={MARK} />
-        </svg>
+        {/* Voice, context and intention: the mark's three strokes come together as you scroll to the end. */}
+        <MarkPieces className="xmark" />
         <h2>Your keyboard<br /><span className="soft">can take a break.</span></h2>
         <div className="cta"><DownloadButton /></div>
         <p className="meta">Free · macOS 13+ · Apple Silicon &amp; Intel · 4.4 MB</p>

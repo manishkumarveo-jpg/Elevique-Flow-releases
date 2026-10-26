@@ -18,3 +18,6 @@ export const MARK =
   'C49.1 47.7 49.6 93.5 11.1 93.5L7.2 93.5A7.2 7.2 0 0 1 0 86.3L0 78.5A4.6 4.6 0 0 1 4.6 73.9L12.1 73.9C34.1 73.9 24.8 55.1 73 40.2' +
   'L62.1 40.2C31.5 40.2 30.8 19.6 4.8 19.6L4.6 19.6A4.6 4.6 0 0 1 0 15ZM0 48.4L0 39.3A2 2 0 0 1 2 37.3L8.5 37.3C25 37.3 37 45.3 41.7 48.4' +
   'C37 51.5 25 59.5 8.5 59.5L2 59.5A2 2 0 0 1 0 57.5Z';
+/** The mark's two parts: the outer strokes with the bar, and the middle wedge. The 3D intro and outro move them apart. */
+export const MARK_OUTLINE = MARK.slice(0, MARK.indexOf('ZM') + 1);
+export const MARK_WEDGE = MARK.slice(MARK.indexOf('ZM') + 1);
