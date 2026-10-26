@@ -580,6 +580,5 @@ html:not(.js) .tl{opacity:1;transform:none}
 .stage3d.flat .caret,.stage3d.flat .fnkey.invite::after,#apps.off .caret,.mpanel.off .rec::before{animation-play-state:paused}
 
 /* real app logos in the switcher: white mark on the app's own colour */
-.tile2 .ic img{width:28px;height:28px;filter:brightness(0) invert(1)}
+.tile2 .ic img{width:32px;height:32px}
 .tile2[aria-selected=true] .ic{box-shadow:0 0 0 2px var(--iv),0 10px 24px rgba(0,0,0,.4)}
-.tile2[aria-selected=true] .ic img{filter:brightness(0) invert(1)}

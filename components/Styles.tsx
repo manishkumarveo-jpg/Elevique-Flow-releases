@@ -10,17 +10,17 @@ const NAMES: Record<Style, string> = { formal: 'Formal', casual: 'Casual', veryC
 
 // Kinds of app, their styles and default (AppCategory), and the Style page's own samples.
 const APPS: { id: string; name: string; icon: string; logo: string; color: string; title: string; styles: Style[]; def: Style; text: Partial<Record<Style, string>> }[] = [
-  { id: 'messaging', name: 'Messages', icon: 'chat', logo: 'whatsapp', color: '#25D366', title: 'Sam', styles: ['formal', 'casual', 'veryCasual'], def: 'casual',
+  { id: 'messaging', name: 'Messages', icon: 'chat', logo: 'whatsapp-icon', color: '#fff', title: 'Sam', styles: ['formal', 'casual', 'veryCasual'], def: 'casual',
     text: { formal: "Sounds good! I'll send the deck tonight. Talk tomorrow.", casual: "Sounds good! I'll send the deck tonight, talk tomorrow", veryCasual: "sounds good i'll send the deck tonight talk tomorrow" } },
-  { id: 'workChat', name: 'Work chat', icon: 'hash', logo: 'slack', color: '#4A154B', title: '# launch', styles: ['formal', 'casual', 'excited'], def: 'casual',
+  { id: 'workChat', name: 'Work chat', icon: 'hash', logo: 'slack-icon', color: '#fff', title: '# launch', styles: ['formal', 'casual', 'excited'], def: 'casual',
     text: { formal: "Hey, if you have a minute, let's go over the launch numbers.", casual: "Hey, if you have a minute let's go over the launch numbers", excited: "Hey, if you have a minute, let's go over the launch numbers!" } },
-  { id: 'email', name: 'Email', icon: 'mail', logo: 'gmail', color: '#EA4335', title: 'New message', styles: ['formal', 'casual', 'excited'], def: 'formal',
+  { id: 'email', name: 'Email', icon: 'mail', logo: 'google-gmail', color: '#fff', title: 'New message', styles: ['formal', 'casual', 'excited'], def: 'formal',
     text: { formal: "Hi Alex,\n\nThanks for the call today. I'll send the revised plan by Friday.\n\nBest,\nSam", casual: "Hi Alex, thanks for the call today. I'll send the revised plan by Friday\n\nBest,\nSam", excited: "Hi Alex,\n\nThanks for the call today! I'll send the revised plan by Friday!\n\nBest,\nSam" } },
-  { id: 'code', name: 'Code', icon: 'code', logo: 'sublimetext', color: '#FF9800', title: 'api.ts', styles: ['formal', 'casual', 'veryCasual'], def: 'formal',
+  { id: 'code', name: 'Code', icon: 'code', logo: 'visual-studio-code', color: '#fff', title: 'api.ts', styles: ['formal', 'casual', 'veryCasual'], def: 'formal',
     text: { formal: 'Add a retry when the request times out, and log the error.', casual: 'Add a retry when the request times out and log the error', veryCasual: 'add a retry when the request times out and log the error' } },
-  { id: 'terminal', name: 'Terminal', icon: 'term', logo: 'iterm2', color: '#1E1E1E', title: 'zsh', styles: ['formal', 'casual', 'veryCasual'], def: 'casual',
+  { id: 'terminal', name: 'Terminal', icon: 'term', logo: 'terminal', color: '#fff', title: 'zsh', styles: ['formal', 'casual', 'veryCasual'], def: 'casual',
     text: { formal: 'Run the tests and fix any failures in the parser.', casual: 'Run the tests and fix any failures in the parser', veryCasual: 'run the tests and fix any failures in the parser' } },
-  { id: 'other', name: 'Everything else', icon: 'doc', logo: 'notion', color: '#191919', title: 'Q4 plan', styles: ['formal', 'casual', 'veryCasual'], def: 'formal',
+  { id: 'other', name: 'Everything else', icon: 'doc', logo: 'notion-icon', color: '#fff', title: 'Q4 plan', styles: ['formal', 'casual', 'veryCasual'], def: 'formal',
     text: { formal: "The draft is ready for review. I've added the new figures.", casual: "The draft is ready for review, I've added the new figures", veryCasual: "the draft is ready for review i've added the new figures" } },
 ];
 
