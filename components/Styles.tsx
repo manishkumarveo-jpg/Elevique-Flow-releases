@@ -18,7 +18,7 @@ const APPS: { id: string; name: string; icon: string; logo: string; color: strin
     text: { formal: "Hi Alex,\n\nThanks for the call today. I'll send the revised plan by Friday.\n\nBest,\nSam", casual: "Hi Alex, thanks for the call today. I'll send the revised plan by Friday\n\nBest,\nSam", excited: "Hi Alex,\n\nThanks for the call today! I'll send the revised plan by Friday!\n\nBest,\nSam" } },
   { id: 'code', name: 'Code', icon: 'code', logo: 'visual-studio-code', color: '#fff', title: 'api.ts', styles: ['formal', 'casual', 'veryCasual'], def: 'formal',
     text: { formal: 'Add a retry when the request times out, and log the error.', casual: 'Add a retry when the request times out and log the error', veryCasual: 'add a retry when the request times out and log the error' } },
-  { id: 'terminal', name: 'Terminal', icon: 'term', logo: 'terminal', color: '#fff', title: 'zsh', styles: ['formal', 'casual', 'veryCasual'], def: 'casual',
+  { id: 'terminal', name: 'Terminal', icon: 'term', logo: 'terminal-dark', color: '#fff', title: 'zsh', styles: ['formal', 'casual', 'veryCasual'], def: 'casual',
     text: { formal: 'Run the tests and fix any failures in the parser.', casual: 'Run the tests and fix any failures in the parser', veryCasual: 'run the tests and fix any failures in the parser' } },
   { id: 'other', name: 'Everything else', icon: 'doc', logo: 'notion-icon', color: '#fff', title: 'Q4 plan', styles: ['formal', 'casual', 'veryCasual'], def: 'formal',
     text: { formal: "The draft is ready for review. I've added the new figures.", casual: "The draft is ready for review, I've added the new figures", veryCasual: "the draft is ready for review i've added the new figures" } },
