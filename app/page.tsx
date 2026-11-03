@@ -1,4 +1,4 @@
-import { Nav, Reveal } from '@/components/client';
+import { DownloadLinks, Nav, Reveal } from '@/components/client';
 import Cleanup from '@/components/Cleanup';
 import Hero from '@/components/Hero';
 import Motion from '@/components/Motion';
@@ -30,6 +30,7 @@ export default function Home() {
       </main>
       <Footer />
       <Reveal />
+      <DownloadLinks />
       <Motion />
     </>
   );

@@ -4,7 +4,7 @@ Voice dictation for your Mac. Hold **fn**, speak, and let go: clean, punctuated 
 
 It's free and uses your own free [Groq](https://console.groq.com/keys) API key. There's no account and no subscription. Your history, notes and recordings stay on your Mac.
 
-**[Download Elevique Flow for Mac](https://github.com/manishkumarveo-jpg/Elevique-Flow-releases/releases/latest/download/EleviqueFlow.dmg)** · macOS 13 or later · Apple Silicon and Intel
+**[Download Elevique Flow for Mac](https://github.com/manishkumarveo-jpg/Elevique-Flow-releases/releases/latest/download/EleviqueFlow.dmg)** · macOS 14 or later · Apple Silicon and Intel
 
 ## Install
 

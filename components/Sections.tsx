@@ -1,5 +1,5 @@
 import { Fragment, type CSSProperties } from 'react';
-import { BASE, REPO, hash } from '@/lib/site';
+import { BASE, DOWNLOAD, REPO, hash } from '@/lib/site';
 import { InView, TourPlayer } from './client';
 import { Brand, DownloadButton, Head, Icon, MarkPieces } from './ui';
 
@@ -229,7 +229,7 @@ const SPEC = [
   ['Languages', '25, including Hindi and Hinglish'],
   ['Translation', 'Hindi and 10 more Indian languages into English'],
   ['Meetings', "Your mic and the call's audio (macOS 14.2+)"],
-  ['Mac', 'macOS 13 or later, Apple Silicon and Intel'],
+  ['Mac', 'macOS 14 or later, Apple Silicon and Intel'],
   ['Download', '4.4 MB'],
   ['Price', "Free, on Groq's free tier"],
   ['Account', 'None'],
@@ -270,7 +270,7 @@ const FAQ: [string, string][] = [
   ['Which languages does it understand?', `25: ${LANGUAGES.slice(0, -1).join(', ')} and ${LANGUAGES.at(-1)}. Choose yours in Settings → General → My languages.`],
   ['My keyboard has no fn key.', 'Switch the shortcut to Right Option in Settings → General. Everything else works the same.'],
   ['Can I use it alongside other dictation apps?', 'Apps that also listen for fn, like Wispr Flow, will clash with it. Quit them while you use Elevique Flow.'],
-  ['Which Macs does it run on?', "macOS 13 or later, on Apple Silicon and Intel. Meeting notes that record the call's audio need macOS 14.2 or later."],
+  ['Which Macs does it run on?', "macOS 14 or later, on Apple Silicon and Intel. Meeting notes that record the call's audio need macOS 14.2 or later."],
   ['How do I update?', 'Download the new version and replace the app in Applications. Your settings, history and permissions carry over. macOS may ask once to let the new version read your key.'],
 ];
 
@@ -304,7 +304,7 @@ export function End() {
         <MarkPieces className="xmark" />
         <h2>Your keyboard<br /><span className="soft">can take a break.</span></h2>
         <div className="cta"><DownloadButton /></div>
-        <p className="meta">Free · macOS 13+ · Apple Silicon &amp; Intel · 4.4 MB</p>
+        <p className="meta">Free · macOS 14+ · Apple Silicon &amp; Intel · 4.4 MB</p>
       </div>
     </section>
   );
@@ -318,7 +318,7 @@ export function Footer() {
         <div>
           <h4>Product</h4>
           <ul>
-            <li><a href={`${REPO}/releases/latest/download/EleviqueFlow.dmg`}>Download</a></li>
+            <li><a href={DOWNLOAD}>Download</a></li>
             <li><a href={`${REPO}/releases`}>Release notes</a></li>
             <li><a href={`${REPO}#readme`}>Install guide</a></li>
           </ul>
