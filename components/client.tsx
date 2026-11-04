@@ -88,7 +88,7 @@ export function Nav() {
 
 /** `releases/latest` is the newest release of either app, so once a Windows-only release exists it has no DMG.
  *  This points every download button at the newest published release with the visitor's installer (Windows PCs get
- *  Setup.exe once one is published), and shows an "Also on …" link to the other one. The `latest` DMG URL is the fallback. */
+ *  Setup.exe once one is published), and shows a second button for the other one. The `latest` DMG URL is the fallback. */
 export function DownloadLinks() {
   useEffect(() => {
     fetch(`${REPO.replace('github.com', 'api.github.com/repos')}/releases?per_page=30`)
@@ -102,13 +102,10 @@ export function DownloadLinks() {
           if (url) a.href = url;
           if (onWin && a.lastChild) a.lastChild.textContent = a.lastChild.textContent!.replace('Mac', 'Windows');
         });
-        if (onWin) document.querySelectorAll('.meta').forEach(m => {
-          m.textContent = m.textContent!.replace('macOS 14+ · Apple Silicon & Intel', 'Windows 10 & 11 · x64 & Arm');
-        });
         const other = onWin ? mac : win;
         if (other) document.querySelectorAll<HTMLAnchorElement>('a[data-other-os]').forEach(a => {
           a.href = other;
-          a.textContent = onWin ? 'Also on Mac' : 'Also on Windows';
+          a.lastChild!.textContent = onWin ? 'Download for Mac' : 'Download for Windows';
           a.hidden = false;
         });
       })

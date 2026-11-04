@@ -81,6 +81,15 @@ export function DownloadButton({ small, label = 'Download for Mac' }: { small?: 
   );
 }
 
+/** The other OS's installer, beside DownloadButton; DownloadLinks fills it in and shows it once that installer is published. */
+export function OtherOsButton() {
+  return (
+    <a className="btn btn-ol" data-other-os hidden>
+      <Icon name="dl" /><span>Download for Windows</span>
+    </a>
+  );
+}
+
 /** A section's numbered eyebrow, two-line headline (the second line soft) and whatever sits beside it. */
 export function Head({ n, label, title, soft, children }: { n: string; label: string; title: ReactNode; soft: ReactNode; children?: ReactNode }) {
   return (

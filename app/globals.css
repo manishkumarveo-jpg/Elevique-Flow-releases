@@ -42,6 +42,9 @@ h3{font-size:21px;line-height:1.2;letter-spacing:-.02em;font-weight:700}
 .btn .i{width:19px;height:19px;stroke-width:2.2}
 .btn-iv{background:var(--iv);color:var(--ink)}
 .btn-iv:hover{background:#fff;transform:translateY(-2px);box-shadow:0 14px 34px rgba(255,255,255,.12)}
+.btn-ol{color:var(--iv);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.28)}
+.btn-ol:hover{transform:translateY(-2px);box-shadow:inset 0 0 0 1.5px rgba(255,255,255,.6)}
+.btn[hidden]{display:none}
 .btn-sm{height:40px;padding:0 18px;font-size:15px}
 .meta{font:500 12px/1.7 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--md)}
 .light .meta{color:var(--ml)}
