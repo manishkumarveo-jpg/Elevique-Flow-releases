@@ -1,7 +1,7 @@
 import { Fragment, type CSSProperties } from 'react';
 import { BASE, DOWNLOAD, REPO, hash } from '@/lib/site';
 import { InView, TourPlayer } from './client';
-import { Brand, DownloadButton, Head, Icon, MarkPieces } from './ui';
+import { Brand, DownloadButton, Head, Icon, MarkPieces, OtherOsButton } from './ui';
 
 const LANGUAGES = ['English', 'Hindi', 'Hinglish', 'Bengali', 'Tamil', 'Telugu', 'Marathi', 'Gujarati', 'Urdu', 'Kannada', 'Malayalam', 'Punjabi',
   'Assamese', 'Spanish', 'French', 'German', 'Portuguese', 'Italian', 'Dutch', 'Russian', 'Japanese', 'Korean', 'Chinese', 'Arabic', 'Turkish'];
@@ -304,9 +304,8 @@ export function End() {
         {/* Voice, context and intention: the mark's three strokes come together as you scroll to the end. */}
         <MarkPieces className="xmark" />
         <h2>Your keyboard<br /><span className="soft">can take a break.</span></h2>
-        <div className="cta"><DownloadButton /></div>
-        <p className="meta">Free · macOS 14+ · Apple Silicon &amp; Intel</p>
-        <a className="meta" data-other-os hidden />
+        <div className="cta"><DownloadButton /><OtherOsButton /></div>
+        <p className="meta">Free · macOS 14+ · Windows 10 &amp; 11</p>
       </div>
     </section>
   );

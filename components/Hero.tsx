@@ -2,7 +2,7 @@
 import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
 import { gsap, lite, MQ, useGSAP, type Conditions } from '@/lib/gsap';
 import { hash, reducedMotion } from '@/lib/site';
-import { Icon, DownloadButton, MarkPieces } from './ui';
+import { Icon, DownloadButton, MarkPieces, OtherOsButton } from './ui';
 
 // What you say while holding the key, which spoken words the cleanup drops (fillers and the "no wait" correction),
 // and what lands in the box (cleanup at Medium). The kept words map one-to-one onto the typed ones.
@@ -241,10 +241,10 @@ export default function Hero() {
           <p className="lead intro" style={delay(.42)}>Hold <kbd>fn</kbd> and speak. Let go, and clean, punctuated text lands in whatever app you&apos;re in, about 0.6 seconds later.</p>
           <div className="cta intro" style={delay(.54)}>
             <DownloadButton />
+            <OtherOsButton />
             <a className="tryl" href="#try">Try it right here<Icon name="arrow" /></a>
           </div>
-          <p className="meta intro" style={delay(.64)}>Free · Your own Groq key · macOS 14+ · Apple Silicon &amp; Intel</p>
-          <a className="meta" data-other-os hidden />
+          <p className="meta intro" style={delay(.64)}>Free · Your own Groq key · macOS 14+ · Windows 10 &amp; 11</p>
         </div>
         <Demo />
       </div>
