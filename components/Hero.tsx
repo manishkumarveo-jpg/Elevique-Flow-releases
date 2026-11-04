@@ -244,6 +244,7 @@ export default function Hero() {
             <a className="tryl" href="#try">Try it right here<Icon name="arrow" /></a>
           </div>
           <p className="meta intro" style={delay(.64)}>Free · Your own Groq key · macOS 14+ · Apple Silicon &amp; Intel</p>
+          <a className="meta" data-other-os hidden />
         </div>
         <Demo />
       </div>
