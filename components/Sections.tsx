@@ -230,7 +230,8 @@ const SPEC = [
   ['Translation', 'Hindi and 10 more Indian languages into English'],
   ['Meetings', "Your mic and the call's audio (macOS 14.2+)"],
   ['Mac', 'macOS 14 or later, Apple Silicon and Intel'],
-  ['Download', '4.4 MB'],
+  ['Windows', 'Windows 10 and 11, x64 and Arm'],
+  ['Download', '12 MB'],
   ['Price', "Free, on Groq's free tier"],
   ['Account', 'None'],
 ];
@@ -271,7 +272,7 @@ const FAQ: [string, string][] = [
   ['My keyboard has no fn key.', 'Switch the shortcut to Right Option in Settings → General. Everything else works the same.'],
   ['Can I use it alongside other dictation apps?', 'Apps that also listen for fn, like Wispr Flow, will clash with it. Quit them while you use Elevique Flow.'],
   ['Which Macs does it run on?', "macOS 14 or later, on Apple Silicon and Intel. Meeting notes that record the call's audio need macOS 14.2 or later."],
-  ['How do I update?', 'Download the new version and replace the app in Applications. Your settings, history and permissions carry over. macOS may ask once to let the new version read your key.'],
+  ['How do I update?', 'Download the new version and replace the app in Applications. Your settings, history and permissions carry over. macOS may ask once to let the new version read your key. On Windows the app updates itself: it downloads the new version in the background and installs it when you quit.'],
 ];
 
 export function Faq() {
@@ -304,7 +305,8 @@ export function End() {
         <MarkPieces className="xmark" />
         <h2>Your keyboard<br /><span className="soft">can take a break.</span></h2>
         <div className="cta"><DownloadButton /></div>
-        <p className="meta">Free · macOS 14+ · Apple Silicon &amp; Intel · 4.4 MB</p>
+        <p className="meta">Free · macOS 14+ · Apple Silicon &amp; Intel</p>
+        <a className="meta" data-other-os hidden />
       </div>
     </section>
   );
@@ -327,7 +329,7 @@ export function Footer() {
           <h4>Learn</h4>
           <ul><li><a href="#edits">Features</a></li><li><a href="#keys">Shortcuts</a></li><li><a href="#privacy">Privacy</a></li><li><a href="#faq">FAQ</a></li></ul>
         </div>
-        <p className="copy"><span>© 2026 Elevique</span><span>Made for macOS</span></p>
+        <p className="copy"><span>© 2026 Elevique</span><span>Made for Mac and Windows</span></p>
       </div>
     </footer>
   );

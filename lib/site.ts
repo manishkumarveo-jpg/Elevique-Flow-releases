@@ -1,5 +1,7 @@
 export const REPO = 'https://github.com/manishkumarveo-jpg/Elevique-Flow-releases';
 export const DOWNLOAD = `${REPO}/releases/latest/download/EleviqueFlow.dmg`;
+/** The Windows installer (windows-release.yml); the site only offers it once a release with it is published. */
+export const WIN_SETUP = 'EleviqueFlowApp-win-Setup.exe';
 
 /** The site lives under /Elevique-Flow-releases on GitHub Pages; plain <video> and <img> URLs need it spelled out. */
 export const BASE = process.env.NEXT_PUBLIC_BASE_PATH ?? '';

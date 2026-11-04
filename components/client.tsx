@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useRef, useState, type ReactNode, type RefObject } from 'react';
-import { DOWNLOAD, REPO } from '@/lib/site';
+import { DOWNLOAD, REPO, WIN_SETUP } from '@/lib/site';
 import { Brand, DownloadButton, Icon } from './ui';
 
 declare global { interface Window { __motion?: boolean } }
@@ -87,14 +87,30 @@ export function Nav() {
 }
 
 /** `releases/latest` is the newest release of either app, so once a Windows-only release exists it has no DMG.
- *  This points every Mac download link at the newest release that has one; the `latest` URL stays as the fallback. */
+ *  This points every download button at the newest published release with the visitor's installer (Windows PCs get
+ *  Setup.exe once one is published), and shows an "Also on …" link to the other one. The `latest` DMG URL is the fallback. */
 export function DownloadLinks() {
   useEffect(() => {
     fetch(`${REPO.replace('github.com', 'api.github.com/repos')}/releases?per_page=30`)
       .then(r => (r.ok ? r.json() : []))
       .then((rs: { assets: { name: string; browser_download_url: string }[] }[]) => {
-        const url = rs.flatMap(r => r.assets).find(a => a.name === 'EleviqueFlow.dmg')?.browser_download_url;
-        if (url) document.querySelectorAll<HTMLAnchorElement>(`a[href="${DOWNLOAD}"]`).forEach(a => (a.href = url));
+        const find = (name: string) => rs.flatMap(r => r.assets).find(a => a.name === name)?.browser_download_url;
+        const mac = find('EleviqueFlow.dmg'), win = find(WIN_SETUP);
+        const onWin = !!win && navigator.userAgent.includes('Windows');
+        const url = onWin ? win : mac;
+        document.querySelectorAll<HTMLAnchorElement>(`a[href="${DOWNLOAD}"]`).forEach(a => {
+          if (url) a.href = url;
+          if (onWin && a.lastChild) a.lastChild.textContent = a.lastChild.textContent!.replace('Mac', 'Windows');
+        });
+        if (onWin) document.querySelectorAll('.meta').forEach(m => {
+          m.textContent = m.textContent!.replace('macOS 14+ · Apple Silicon & Intel', 'Windows 10 & 11 · x64 & Arm');
+        });
+        const other = onWin ? mac : win;
+        if (other) document.querySelectorAll<HTMLAnchorElement>('a[data-other-os]').forEach(a => {
+          a.href = other;
+          a.textContent = onWin ? 'Also on Mac' : 'Also on Windows';
+          a.hidden = false;
+        });
       })
       .catch(() => {}); // offline or rate-limited (60/h per visitor): the latest URL still works while it has the DMG
   }, []);
